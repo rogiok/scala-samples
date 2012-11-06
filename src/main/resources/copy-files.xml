@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="copy-files" default="copy" basedir=".">
+  <taskdef name="copyfiles" classname="copyfiles.CopyFiles">
+    <classpath>
+      <fileset dir="" includes="copyfiles.jar"/>
+    </classpath>
+  </taskdef>
+
+  <target name="copy">
+    <property name="tempdirsrc" value="Projeto"/>
+    <property name="tempdirJBoss" value="C:\jboss-3.2.3"/>
+    <property name="tempdir" value="25162"/>
+  </target>
+
+</project>
