@@ -1,3 +1,5 @@
+package general
+
 trait Logger {
 
   def log(msg: String) {

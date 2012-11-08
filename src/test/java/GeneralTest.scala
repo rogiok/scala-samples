@@ -1,13 +1,10 @@
+package general
+
+import collection.mutable.ArrayBuffer
 import org.junit.Test
 import scala.math._
+import collection.mutable.HashSet
 
-/**
- * Created with IntelliJ IDEA.
- * User: Rogerio
- * Date: 10/21/12
- * Time: 10:17 PM
- * To change this template use File | Settings | File Templates.
- */
 class GeneralTest {
 
   @Test
@@ -56,5 +53,55 @@ class GeneralTest {
 
     println(Array(1.2, 2.8).map(fun).array(0))
 
+  }
+
+  @Test
+  def sets() {
+
+    var array = new ArrayBuffer[String]
+
+    for (i <- 0 to 100000)
+      array += "" + i
+
+    var start = System.currentTimeMillis()
+
+    println(array.contains("99999"))
+
+    println(System.currentTimeMillis() - start)
+
+
+    var set = new HashSet[String]
+
+    for (i <- 0 to 100000)
+      set += "" + i
+
+    start = System.currentTimeMillis()
+
+    println(set.contains("99999"))
+
+    println(System.currentTimeMillis() - start)
+
+  }
+
+  @Test
+  def stream {
+
+    val x = Stream[Int](1, 2)
+
+    val y = x ++ Stream[Int](3)
+
+    val w = y.force
+
+    println(x.tail.head)
+    println(y.print(", "))
+    println(w.print(", "))
+
+    val a = w.map(_ * 2)
+
+    val v = a apply 2
+
+    a force
+
+    println(a)
   }
 }

@@ -1,3 +1,5 @@
+package general
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rogerio

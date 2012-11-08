@@ -1,3 +1,5 @@
+package general
+
 import java.io.{FileInputStream, InputStreamReader}
 import org.junit.Test
 import scala.math._

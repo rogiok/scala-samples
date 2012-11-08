@@ -1,3 +1,5 @@
+package general
+
 import collection.mutable.ArrayBuffer
 import org.junit.Test
 import org.junit.Assert._

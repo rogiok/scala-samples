@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 import org.apache.http.message.BasicHttpRequest
 
 object Pi {
-
+/*
   def main(args: Array[String]) {
     println("Running")
 
@@ -207,7 +207,7 @@ object Pi {
     }
 
   }
-
+*/
 }
 
 
