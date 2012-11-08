@@ -104,4 +104,23 @@ class GeneralTest {
 
     println(a)
   }
+
+  @Test
+  def parallel {
+
+    val col = ArrayBuffer[Int]()
+
+    for (i <- 0 until 10000)
+      col += i
+
+    val s = col.par.sum
+
+    println(s)
+
+    //    col.par.foreach(println(_))
+
+    for (v <- col.par)
+      println(v)
+
+  }
 }
