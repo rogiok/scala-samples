@@ -1,3 +1,4 @@
+import collection.mutable.ArrayBuffer
 import org.junit.Test
 import scala.math._
 
@@ -55,6 +56,25 @@ class GeneralTest {
     println(fun(10.5))
 
     println(Array(1.2, 2.8).map(fun).array(0))
+
+  }
+
+  @Test
+  def parallel {
+
+    val col = ArrayBuffer[Int]()
+
+    for (i <- 0 until 10000)
+      col += i
+
+    val s = col.par.sum
+
+    println(s)
+
+//    col.par.foreach(println(_))
+
+    for (v <- col.par)
+      println(v)
 
   }
 }
