@@ -123,4 +123,29 @@ class GeneralTest {
       println(v)
 
   }
+
+  @Test
+  def another {
+
+    val s = new Another("abc").aa("123", "456")
+
+    val s1 = "123"
+
+    println(s)
+
+  }
+
+
+  @Test
+  def singleton {
+
+    val v: Every = new Every
+
+    v.setId("123")
+
+    val p: Person = new Person
+
+    p.setId("123").setName("abc")
+
+  }
 }

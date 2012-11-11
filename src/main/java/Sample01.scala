@@ -43,3 +43,53 @@ object Fraction {
   }
 }
 
+
+case class Another(value: String*) {
+
+  def aa(p: String*) = "p=" + p.mkString
+
+}
+
+object Another
+
+
+class Pair[T, V](val s: T, val x: V)
+
+class AnotherPair[T <: Comparable[T]](val f: T, val s: T) {
+  def smaller = if (f.compareTo(s) < 0) f else s
+}
+
+/*
+Class has a view bound (<%) that converts using a implicit conversion (Int to RichInt). RichInt has the Comparable trait.
+ */
+class AnotherPair2[T <% Comparable[T]](val f: T, val s: T) {
+  def smaller = if (f.compareTo(s) < 0) f else s
+}
+
+class Every {
+  var id: String = null
+
+  def setId(id: String): this.type = {
+    this.id = id
+
+    this
+  }
+}
+
+class Person extends Every {
+  var name: String = null
+
+  def setName(n: String) = {
+    this.name = n
+
+    this
+  }
+}
+
+class Student extends Person
+
+class UpperBoundPair[T <: Person] // Accept Person and your subclasses
+class LowerBoundPair[T >: Person] // Accept Person and your superclasses
+//class ViewBoundPair[T <% Person]
+
+

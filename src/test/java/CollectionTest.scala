@@ -15,4 +15,12 @@ class CollectionTest {
 
   }
 
+  @Test
+  def list {
+
+    val x = List[String]("a") :: List[String]("b")
+
+    println(x)
+
+  }
 }
