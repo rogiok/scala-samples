@@ -1,5 +1,7 @@
 package general
 
+import collection.mutable._
+
 trait Logger {
 
   def log(msg: String) {
@@ -68,11 +70,18 @@ class AnotherPair2[T <% Comparable[T]](val f: T, val s: T) {
 
 class Every {
   var id: String = null
+  type Index = String HashMap Any // Infix for HashMap[String, Any]
 
   def setId(id: String): this.type = {
     this.id = id
 
     this
+  }
+
+  def abc {
+    val x: Index = new Index[String, Any]
+
+    x += ("abc" -> "123")
   }
 }
 
