@@ -135,17 +135,37 @@ class GeneralTest {
 
   }
 
-
   @Test
   def singleton {
 
     val v: Every = new Every
 
-    v.setId("123")
+    v setId "123"
+
+    v setId {"123"}
 
     val p: Person = new Person
 
-    p.setId("123").setName("abc")
+    p setId "123" setName "abc"
+
+  }
+
+  @Test
+  def generalTest {
+
+    import general.ClassOne._
+
+    abc {
+      println("outer abc")
+
+      def lop { println("OK") }
+
+      val x = 123
+
+      lop
+    }
+
+    println("end")
 
   }
 }

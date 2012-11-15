@@ -1,6 +1,7 @@
 package general
 
 import collection.mutable._
+import scala.actors.Actor
 
 trait Logger {
 
@@ -79,9 +80,22 @@ class Every {
   }
 
   def abc {
-    val x: Index = new Index[String, Any]
+    val x: Index = new Index
 
     x += ("abc" -> "123")
+  }
+
+  val func1 = (x: String) => 123
+
+  def func(f: String => Any)(v: String): String = {
+
+    val r = f(v)
+
+    r match {
+    case x: String => "onetwothree"
+    case _ => "abc"
+    }
+
   }
 }
 
@@ -100,5 +114,25 @@ class Student extends Person
 class UpperBoundPair[T <: Person] // Accept Person and your subclasses
 class LowerBoundPair[T >: Person] // Accept Person and your superclasses
 //class ViewBoundPair[T <% Person]
+
+
+
+class AccountActor extends Actor {
+
+  def act() {
+    receive {
+      case _ => println("OK")
+    }
+  }
+}
+
+object ClassOne {
+  def abc(f: Any) {
+
+    println("inner abc")
+
+//    this.abc(f)
+  }
+}
 
 

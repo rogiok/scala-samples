@@ -70,6 +70,21 @@ class FunctionTest {
 
   }
 
+  @Test
+  def funcTest {
+
+    val e: Every = new Every
+
+    e.setId({"abc"})
+
+    val r = e.func (
+      (x: String) => x + "123"
+    )("abc")
+
+    assertEquals("onetwothree", r)
+
+  }
+
 }
 
 
