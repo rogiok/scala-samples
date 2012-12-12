@@ -4,6 +4,7 @@ import collection.mutable.ArrayBuffer
 import org.junit.Test
 import scala.math._
 import collection.mutable.HashSet
+import collection.mutable
 
 class GeneralTest {
 
@@ -70,7 +71,7 @@ class GeneralTest {
     println(System.currentTimeMillis() - start)
 
 
-    var set = new HashSet[String]
+    var set = new mutable.HashSet[String]
 
     for (i <- 0 to 100000)
       set += "" + i
@@ -100,7 +101,7 @@ class GeneralTest {
 
     val v = a apply 2
 
-    a force
+    a.force
 
     println(a)
   }

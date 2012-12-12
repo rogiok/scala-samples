@@ -7,7 +7,7 @@ import collection.JavaConversions.propertiesAsScalaMap
 class CollectionTest {
 
   @Test
-  def conc {
+  def conc() {
 
     val props: Map[String, String] = propertiesAsScalaMap(System.getProperties)
 
@@ -16,7 +16,7 @@ class CollectionTest {
   }
 
   @Test
-  def list {
+  def list() {
 
     val x = List[String]("a") :: List[String]("b")
 
