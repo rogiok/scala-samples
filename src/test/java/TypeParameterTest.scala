@@ -5,7 +5,7 @@ import org.junit.Assert._
 class TypeParameterTest {
 
   @Test
-  def classType {
+  def classType() {
 
     val p = new Pair[String, Int]("a", 1)
 
