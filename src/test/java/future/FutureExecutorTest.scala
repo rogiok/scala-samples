@@ -3,9 +3,9 @@ package future
 import org.junit.Test
 import concurrent.{Promise, Await, ExecutionContext, Future}
 import concurrent.duration.Duration
-import java.util.concurrent.TimeUnit
 import collection.mutable.ArrayBuffer
 import ExecutionContext.Implicits.global
+import java.util.concurrent.TimeUnit
 
 /**
  * User: Rogerio
