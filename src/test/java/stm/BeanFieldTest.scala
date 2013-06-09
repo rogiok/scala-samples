@@ -3,6 +3,7 @@ package stm
 import scala.concurrent.stm._
 import org.junit.Test
 import java.util.concurrent.{TimeUnit, Executors}
+import scala.concurrent.stm.Ref.View
 
 /**
  * User: Rogerio
@@ -15,8 +16,6 @@ class BeanFieldTest {
 
     val beanService = new BeanService
     val executor = Executors.newScheduledThreadPool(10)
-
-    beanService.init
 
     for (i <- 0 until 10)
       executor.schedule(new Runnable() {
@@ -38,7 +37,8 @@ class BeanFieldTest {
 
 class BeanService {
 
-  val bean = Ref.make[BeanField]()
+//  val bean = Ref.make[BeanField]()
+  val bean = Ref[BeanField](new BeanField(0, 0))
 
   def init {
     atomic {
@@ -67,11 +67,12 @@ class BeanService {
   }
 
   def getBean: BeanField = {
-    atomic {
-      implicit txn => {
-        bean()
-      }
-    }
+    bean.single.apply()
+//    atomic {
+//      implicit txn => {
+//        bean()
+//      }
+//    }
   }
 
 }
