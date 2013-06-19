@@ -3,7 +3,7 @@ package stm
 import scala.concurrent.stm._
 import org.junit.Test
 import java.util.concurrent.{TimeUnit, Executors}
-import scala.concurrent.stm.Ref.View
+import scala.collection.mutable
 
 /**
  * User: Rogerio
@@ -17,42 +17,58 @@ class BeanFieldTest {
     val beanService = new BeanService
     val executor = Executors.newScheduledThreadPool(10)
 
-    for (i <- 0 until 10)
+    for (i <- 0 until 20)
       executor.schedule(new Runnable() {
         override def run {
-          beanService.update(new BeanField(1, 1))
+          beanService.update(s"bean${if(i % 2 == 0) 2 else 1}", new BeanField(1, 1))
 
-          println("Updated")
+          println(s"Updated bean${if(i % 2 == 0) 2 else 1}")
         }
       }, 1, TimeUnit.SECONDS)
 
-    Thread.sleep(20000)
+//    for (i <- 0 until 20)
+//      executor.schedule(new Runnable() {
+//        override def run {
+//          beanService.update(s"bean1", new BeanField(1, 1))
+//
+//          println(s"Updated bean1")
+//        }
+//      }, 1, TimeUnit.SECONDS)
+
+    Thread.sleep(30000)
 
     executor.shutdown()
 
-    println(s"final one: ${beanService.getBean.one} - two: ${beanService.getBean.two}")
+    println(s"final one: ${beanService.getBean("bean1").one} - two: ${beanService.getBean("bean1").two}")
+    println(s"final two: ${beanService.getBean("bean2").one} - two: ${beanService.getBean("bean2").two}")
 
   }
 }
 
 class BeanService {
 
-//  val bean = Ref.make[BeanField]()
-  val bean = Ref[BeanField](new BeanField(0, 0))
+//  val map = new mutable.HashMap[String, Ref[BeanField]]
+//  val bean = Ref[BeanField](new BeanField(0, 0))
+  val map = TMap.empty[String, Ref[BeanField]]
 
-  def init {
+//  init
+
+//  def init {
+//    val bean1 = Ref[BeanField](new BeanField(0, 0))
+
+//    map += ("bean1" -> bean1)
+
+//    val bean2 = Ref[BeanField](new BeanField(0, 0))
+
+//    map += ("bean2" -> bean2)
+//  }
+
+  def update(id: String, pBean: BeanField) {
     atomic {
       implicit txn => {
-        if (bean() == null)
-          bean.swap(new BeanField(0, 0))
-      }
-    }
-  }
+        println(s"Updating $id")
 
-  def update(pBean: BeanField) {
-    atomic {
-      implicit txn => {
-        println("Updating...")
+        val bean = map.getOrElseUpdate(id, Ref[BeanField](new BeanField(0, 0)))
 
         val newBean = new BeanField(bean().one, bean().two)
 
@@ -66,7 +82,9 @@ class BeanService {
     }
   }
 
-  def getBean: BeanField = {
+  def getBean(id: String): BeanField = {
+    val bean = map.single(id)
+
     bean.single.apply()
 //    atomic {
 //      implicit txn => {
