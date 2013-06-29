@@ -2,6 +2,7 @@ package stm
 
 import scala.concurrent.stm._
 import org.junit.Test
+import org.junit.Assert._
 import java.util.concurrent.{TimeUnit, Executors}
 import scala.collection.mutable
 
@@ -39,8 +40,13 @@ class BeanFieldTest {
 
     executor.shutdown()
 
-    println(s"final one: ${beanService.getBean("bean1").one} - two: ${beanService.getBean("bean1").two}")
-    println(s"final two: ${beanService.getBean("bean2").one} - two: ${beanService.getBean("bean2").two}")
+    println(s"final bean1 -> one: ${beanService.getBean("bean1").one} - two: ${beanService.getBean("bean1").two}")
+    println(s"final bean2 -> one: ${beanService.getBean("bean2").one} - two: ${beanService.getBean("bean2").two}")
+
+    assertEquals(10, beanService.getBean("bean1").one)
+    assertEquals(10, beanService.getBean("bean1").two)
+    assertEquals(10, beanService.getBean("bean2").one)
+    assertEquals(10, beanService.getBean("bean2").two)
 
   }
 }
@@ -96,6 +102,4 @@ class BeanService {
 }
 
 class BeanField(var one: Int, var two: Int) {
-//  var one = 0
-//  var two = 0
 }

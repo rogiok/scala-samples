@@ -2,6 +2,7 @@ package stm
 
 import scala.concurrent.stm._
 import org.junit.Test
+import org.junit.Assert._
 import java.util.concurrent.{TimeUnit, Executors}
 
 /**
@@ -13,11 +14,11 @@ class ManyFieldTest {
 
   @Test def writeSkewTest {
 
-    val executor = Executors.newScheduledThreadPool(10)
+    val executor = Executors.newScheduledThreadPool(100)
 
     val manyField = new ManyField
 
-    for (i <- 0 until 10)
+    for (i <- 0 until 10000)
       executor.schedule(new Runnable() {
         override def run {
           manyField.sum(1, 1, true)
@@ -26,11 +27,14 @@ class ManyFieldTest {
         }
       }, 1, TimeUnit.SECONDS)
 
-    Thread.sleep(20000)
+    Thread.sleep(2000)
 
     executor.shutdown()
 
     println(s"final one: ${manyField.getOne} - two: ${manyField.getTwo}")
+
+    assertEquals(10000, manyField.getOne)
+    assertEquals(10000, manyField.getTwo)
 
   }
 }
@@ -66,7 +70,7 @@ class ManyField {
 //        else
           two.swap(two() + pTwo)
 
-        Thread.sleep(1000)
+//        Thread.sleep(1000)
       }
     }
   }
