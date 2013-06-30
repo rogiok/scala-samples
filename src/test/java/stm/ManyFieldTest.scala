@@ -18,7 +18,7 @@ class ManyFieldTest {
 
     val manyField = new ManyField
 
-    for (i <- 0 until 10000)
+    for (i <- 0 until 10)
       executor.schedule(new Runnable() {
         override def run {
           manyField.sum(1, 1, true)
@@ -27,14 +27,14 @@ class ManyFieldTest {
         }
       }, 1, TimeUnit.SECONDS)
 
-    Thread.sleep(2000)
+    Thread.sleep(20000)
 
     executor.shutdown()
 
     println(s"final one: ${manyField.getOne} - two: ${manyField.getTwo}")
 
-    assertEquals(10000, manyField.getOne)
-    assertEquals(10000, manyField.getTwo)
+    assertEquals(10, manyField.getOne)
+    assertEquals(10, manyField.getTwo)
 
   }
 }
@@ -63,12 +63,16 @@ class ManyField {
   def sum(pOne: Int, pTwo: Int, phase: Boolean) {
     atomic {
       implicit txn => {
-        println(s"one: $pOne - two: $pTwo")
 
 //        if (phase)
           one.swap(one() + pOne)
+
+        Thread.sleep(1000)
+
 //        else
           two.swap(two() + pTwo)
+
+        println(s"one: ${one()} - two: ${two()}")
 
 //        Thread.sleep(1000)
       }

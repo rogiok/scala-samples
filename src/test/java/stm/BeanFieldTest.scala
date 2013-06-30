@@ -72,14 +72,20 @@ class BeanService {
   def update(id: String, pBean: BeanField) {
     atomic {
       implicit txn => {
-        println(s"Updating $id")
+//        println(s"Updating $id")
 
         val bean = map.getOrElseUpdate(id, Ref[BeanField](new BeanField(0, 0)))
 
-        val newBean = new BeanField(bean().one, bean().two)
+        val nb = bean()
 
-        newBean.one += pBean.one
-        newBean.two += pBean.two
+        println(s"Updating $id -> ${bean.toString} = ${nb.toString}")
+
+        val newBean = new BeanField(nb.one + pBean.one, nb.two + pBean.two)
+
+//        newBean.one += pBean.one
+//        newBean.two += pBean.two
+
+        println(s"${newBean.one} - ${newBean.two}")
 
         bean.swap(newBean)
 
@@ -101,5 +107,5 @@ class BeanService {
 
 }
 
-class BeanField(var one: Int, var two: Int) {
+class BeanField(val one: Int, val two: Int) {
 }
