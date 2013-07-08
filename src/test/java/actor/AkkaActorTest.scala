@@ -45,13 +45,13 @@ class AkkaActorTest {
   @Test def sendMasterTest() {
 
     val system = ActorSystem("MySystem")
-
+    var min = Long.MaxValue
 
     implicit val timeout = Timeout(120, TimeUnit.SECONDS)
 
-    for (i <- 1 to 10) {
+    val master = system.actorOf(Props(new MasterActor(10000000, 100)), name = "masterActor")
 
-      val master = system.actorOf(Props(new MasterActor(1000000, 10)), name = "masterActor" + i)
+    for (i <- 1 to 100) {
 
       val start = System.currentTimeMillis
 
@@ -59,11 +59,15 @@ class AkkaActorTest {
 
       val total = Await.result(future, timeout.duration).asInstanceOf[Int]
 
-      println(s"Average: $total - time: ${System.currentTimeMillis() - start} ms")
+      val end = System.currentTimeMillis() - start
 
-      system.stop(master)
+      min = Math.min(min, end)
+
+      println(s"Average: $total - time: ${end} ms - Min: $min")
 
     }
+
+    system.stop(master)
 
     Thread.sleep(2000)
 
@@ -75,12 +79,14 @@ class AkkaActorTest {
 
   @Test def averageTest() {
 
-    for (i <- 1 to 10) {
+    var min = Long.MaxValue
+
+    for (i <- 1 to 100) {
       val start = System.currentTimeMillis
       var total = 0
 //    var result = 0
 
-      (1 to 1000000).foreach(i => {
+      (1 to 10000000).foreach(i => {
         total += new Random().nextInt(1000)
 
 //      result = total / i
@@ -88,7 +94,10 @@ class AkkaActorTest {
 
       println(total)
 
-      println(s"Average: ${total / 1000000} - time: ${System.currentTimeMillis() - start} ms")
+      val end = System.currentTimeMillis() - start
+      min = Math.min(min, end)
+
+      println(s"Average: ${total / 10000000} - time: ${end} ms - Min: $min")
     }
   }
 
@@ -103,19 +112,18 @@ class MasterActor(var elements: Int = 1, var numWorkers: Int = 10) extends Actor
 
   {
     for (i <- 1 to numWorkers)
+//      workers += context.actorOf(Props[WorkerActor].withDispatcher("my-thread-pool-dispatcher"), name = "workerActor" + i)
       workers += context.actorOf(Props[WorkerActor], name = "workerActor" + i)
-
-//    workers += context.actorOf(Props[WorkerActor].withDispatcher("my-thread-pool-dispatcher"), name = "workerActor" + i)
   }
 
   def receive: Receive = {
     case "start" =>
       origin = context.sender
+      count = 0
+      total = 0
 
 //      val service: ExecutorService = Executors.newFixedThreadPool(500)
-
 //      val random = new Random()
-
 //      var index = 0
       val range = elements / numWorkers
 
