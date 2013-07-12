@@ -10,13 +10,24 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>Maven repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
             <id>typesafe</id>
             <name>Typesafe Repository</name>
             <url>http://repo.typesafe.com/typesafe/releases/</url>
         </repository>
         <repository>
-            <id>repo1</id>
-            <url>http://repo1.maven.org/maven2</url>
+            <id>oss.sonatype.org</id>
+            <name>releases</name>
+            <url>http://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>oss.sonatype.org-snapshots</id>
+            <name>snapshots</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 
@@ -75,6 +86,25 @@
             <artifactId>riak-client</artifactId>
             <version>1.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.33.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2_2.10</artifactId>
+            <version>2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.10</artifactId>
+            <version>2.0.M5b</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

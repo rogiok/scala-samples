@@ -1,6 +1,6 @@
 package riak
 
-import org.junit.Test
+import org.junit.{Ignore, Test}
 import com.basho.riak.client.bucket.Bucket
 import com.basho.riak.client.{IRiakClient, RiakFactory}
 import com.basho.riak.client.raw.http.{HTTPClusterConfig, HTTPClientConfig}
@@ -19,6 +19,7 @@ import com.basho.riak.client.raw.pbc.PBClusterConfig
  * Date: 5/19/13
  * Time: 4:17 PM
  */
+@Ignore
 class RiakStressTest {
 
   @Test def testOne() {

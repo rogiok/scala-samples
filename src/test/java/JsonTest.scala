@@ -15,8 +15,10 @@ class JsonTest {
 
     val mapper: ObjectMapper = new ObjectMapper()
 
-    mapper.getSerializationConfig.set(SerializationConfig.Feature.WRAP_ROOT_VALUE, true)
-    mapper.getDeserializationConfig.set(DeserializationConfig.Feature.UNWRAP_ROOT_VALUE, true)
+//    mapper.getSerializationConfig.set(SerializationConfig.Feature.WRAP_ROOT_VALUE, true)
+    mapper.enable(SerializationConfig.Feature.WRAP_ROOT_VALUE)
+//    mapper.getDeserializationConfig.set(DeserializationConfig.Feature.UNWRAP_ROOT_VALUE, true)
+    mapper.enable(DeserializationConfig.Feature.UNWRAP_ROOT_VALUE)
 
     // val u: User = mapper.readValue("{\"user\": null}", classOf[User])
 //    val u: User = mapper.readValue("{\"user\": { \"id\": \"10\" }}", classOf[User])
@@ -32,7 +34,7 @@ class JsonTest {
 
     val mapper: ObjectMapper = new ObjectMapper()
 
-    mapper.getSerializationConfig.set(SerializationConfig.Feature.WRAP_ROOT_VALUE, true)
+    mapper.enable(SerializationConfig.Feature.WRAP_ROOT_VALUE)
 
     val u = new User
 
