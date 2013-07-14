@@ -58,7 +58,7 @@ class DslTwoTest extends GeneralFunctions with GivenWhenThen with ShouldMatchers
     }
 
     user name "rogiok"
-    user password "phantom4"
+    user password ""
 
     assert(user authenticate)
 
@@ -114,7 +114,7 @@ class DslTwoTest extends GeneralFunctions with GivenWhenThen with ShouldMatchers
     }
 
     user name "rogiok"
-    user password "phantom4"
+    user password ""
     user authenticate
 
     assert(user logout)
