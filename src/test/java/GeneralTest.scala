@@ -169,4 +169,15 @@ class GeneralTest {
     println("end")
 
   }
+
+  @Test def stringManipulation() {
+
+    val s =
+      """abcdef
+        |123456
+      """.stripMargin
+
+    println(s)
+
+  }
 }

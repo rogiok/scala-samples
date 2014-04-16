@@ -85,6 +85,26 @@ class FunctionTest {
 
   }
 
+  def sum(a: Int, b: Int): Int = {
+    a + b
+  }
+
+  def esum(a: Int, b: Int)(f: (Int, Int) => Int) = {
+    f(a, b)
+  }
+
+  @Test def a5Test {
+
+    println(esum(10, 20)(sum))
+
+    println(esum(10, 20)( (a, b) => a * b ))
+
+    println(esum(10, 20) { (a, b) =>
+      a * b
+    })
+
+  }
+
 }
 
 
