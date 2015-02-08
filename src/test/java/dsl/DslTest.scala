@@ -1,6 +1,6 @@
 package dsl
 
-import org.specs2.mutable._
+//import org.specs2.mutable._
 //import dsl.GeneralDsl._
 
 /**
@@ -8,6 +8,7 @@ import org.specs2.mutable._
  * Date: 7/11/13
  * Time: 6:08 PM
  */
+/*
 class DslTest extends Specification {
 
   "Autenticação do usuário" should {
@@ -39,7 +40,7 @@ class DslTest extends Specification {
 
 }
 
-/*
+
 abstract class Term
 case class Func(a: String) extends Term
 case class Integer(v: Int) extends Term

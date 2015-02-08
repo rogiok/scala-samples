@@ -1,7 +1,7 @@
 package algorithm
 
 import org.junit.Test
-import com.google.common.base.Stopwatch
+//import com.google.common.base.Stopwatch
 
 /**
  * User: Rogerio
@@ -29,18 +29,18 @@ class Fibonacci {
 
   @Test def test() {
 
-    val s = new Stopwatch().start()
+//    val s = new Stopwatch().start()
     println(fibo(50))
-    s.stop()
+//    s.stop()
 
-    println(s)
+//    println(s)
 
-    s.reset()
-    s.start()
+//    s.reset()
+//    s.start()
     println(fiboD(50))
-    s.stop()
+//    s.stop()
 
-    println(s)
+//    println(s)
 
   }
 
