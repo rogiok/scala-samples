@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "junit" % "junit" % "4.10",
   "org.seleniumhq.selenium" % "selenium-java" % "2.44.0",
-  "org.specs2" %% "specs2" % "2.0",
+  "org.specs2" %% "specs2" % "3.0-M3",
   "org.codehaus.jackson" % "jackson-jaxrs" % "1.9.13",
   "org.json4s" %% "json4s-native" % "3.2.11",
   "org.json4s" %% "json4s-jackson" % "3.2.11",
